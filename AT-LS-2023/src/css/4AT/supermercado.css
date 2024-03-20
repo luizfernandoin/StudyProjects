@@ -1,0 +1,66 @@
+.container {
+    flex-direction: column;
+    justify-content: flex-start !important; 
+    align-items: stretch !important;
+    padding: 2rem 5rem 2rem 5rem;
+}
+
+h1 {
+    color: #00ff88;
+    font-weight: 800;
+    display: block;
+    font-size: 2em;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+}
+
+.form {
+    display: flex;
+    column-gap: 1rem;
+    text-align: center;
+    margin: 1rem 0;
+}
+
+button {
+    padding: 5px 10px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background-color: #007BFF;
+    color: white;
+}
+
+.removeButton {
+    background-color: #FF6B6B;
+    color: white;
+    border: none;
+}
+
+.removeButton:hover {
+    background-color: #FF4545;
+}
+
+.btn {
+    margin: 0px !important;
+}
+
+.btn:hover {
+    background: #03d674;
+}

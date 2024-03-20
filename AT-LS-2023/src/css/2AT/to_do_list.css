@@ -1,0 +1,36 @@
+.container {
+    flex-direction: column;
+    row-gap: 5rem;
+}
+
+#taskList {
+    width: 50%;
+    height: auto;
+}
+
+.taskItem {
+    display: flex;
+    flex-flow: row wrap; /* Correção: remova a vírgula entre "row" e "wrap" */
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 15vh;
+    padding: 15px 30px;
+    border-radius: 10px;
+    background-color: #00000056;
+    color: #fff;
+    margin-bottom: 3vh;
+}
+
+.taskItem span {
+    font-size: 1.3em;
+    line-height: 1.55em;
+    font-weight: 700;
+    font-family: "Roboto Slab", "Times New Roman", serif;
+    max-width: 90%;
+    word-wrap: break-word; /* Adicionando propriedade para quebrar palavras */
+}
+
+.removeTask:hover {
+    cursor: pointer;
+}

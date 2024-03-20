@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-br" dir="ltr" style="background-color: black">
+<head>
+	<meta charset="utf-8">
+	<meta nome="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Cadastro de usuário</title>
+	<link rel="stylesheet" type="text/css" href="formulario.css" media="">
+</head>
+<body>
+	<div>
+		<h1 id="titulo">Dados do Usuário</h1>
+		<br>
+		<br>
+	</div>
+
+	<form>
+		<fieldset class="grupo">
+			<div class="campo">
+				<label for="nome"><strong>Nome Completo</strong></label>
+				<input type="text" name="nome" id="nome" required>
+			</div>
+
+			<div class="campo">
+				<label for="email"><strong>Email</strong></label>
+				<input style="height: 18px;" type="email" name="email" id="email" required >
+			</div>
+		</fieldset>
+
+		<fieldset class="grupo">
+			<div class="campo">
+				<label for="telefone">Telefone</label>
+				<input type="tel" id="telefone" name="telefone" placeholder="(XX) XXXXX-XXXX" pattern="(\([0-9]{2}\))\s([9]{1})?([0-9]{4})-([0-9]{4})" required>
+			</div>
+
+			<div class="campo">
+				<label for="password">Senha</label>
+				<input type="password" id="password" name="password" required>
+			</div>
+		</fieldset>
+
+		<fieldset class="grupo">
+			<div class="campo">
+				<label><strong>Sexo</strong></label>
+				<fieldset class="grupo">
+					<div class="campo">
+						<label>
+							<input type="radio" name="sexo" value="feminino">Feminino
+						</label>
+					</div>
+					<div class="campo">
+						<label>
+							<input type="radio" name="sexo" value="masculino">Masculino
+						</label>
+					</div>
+				</fieldset>
+			</div>
+
+			<div class="campo">
+				<label for="birthdaytime">Data e Hora de nascimento:</label>
+				<input type="datetime-local" id="birthdaytime" name="birthdaytime" required>
+			</div>
+		</fieldset>
+
+		<fieldset class="grupo">
+			<div class="campo">
+				<label name="ufnascimento" for="senioridade"><strong>UF de nascimento</strong></label>
+				<select id="senioridade">
+					<option selected disabled value="">Selecione</option>
+					<option value="ro">RO</option>
+					<option value="ac">AC</option>
+					<option >AM</option>
+					<option >RR</option>
+					<option >PA</option>
+					<option >AP</option>
+					<option >TO</option>
+					<option >MA</option>
+					<option >PI</option>
+					<option >CE</option>
+					<option >RN</option>
+					<option >PB</option>
+					<option >PE</option>
+					<option >AL</option>
+					<option >SE</option>
+					<option >BA</option>
+					<option >MG</option>
+					<option >ES</option>
+					<option >RJ</option>
+					<option >SP</option>
+					<option >PR</option>
+					<option >SC</option>
+					<option >RS</option>
+					<option >MS</option>
+					<option >MT</option>
+					<option >GO</option>
+					<option >DF</option>
+				</select>
+			</div>
+
+			<div class="campo">
+				<label for="favcolor">Cor Favorita:</label>
+				<input type="color" id="favcolor" name="favcolor" value="#0000FF">
+			</div>
+		</fieldset>
+
+		<fieldset class="grupo">
+			<div class="campo">
+				<label for="dataespecial">Informe uma data especial:</label>
+				<input type="date" id="dataespecial" name="dataespecial" required>
+			</div>
+
+			<div class="campo">
+				<label for="horaacordar">Que horas costuma acordar:</label>
+				<input type="time" id="horaacordar" name="horaacordar" required>
+			</div>
+		</fieldset>
+		
+		<fieldset class="grupo">
+			<div class="campo">
+				<label for="number-pessoas">Quantas pessoas tem a sua família?</label>
+				<input type="number" id="number-pessoas" name="number-pessoas" min="0" required>
+			</div>
+
+			<div class="campo">
+				<label for="url-perfil">Url do perfil no Instagram:</label>
+				<input type="url" id="url-perfil" name="url-perfil" required>
+			</div>
+		</fieldset>
+
+		<fieldset class="grupo">
+			<div id="check">
+				<label><strong>Quais as suas preferências musicais:</strong></label><br><br>
+				<input type="checkbox" id="genero1" name="genero1" value="Rock">
+				<label for="genero1"><strong>Rock</strong></label>
+				<input type="checkbox" id="genero2" name="genero2" value="Sertanejo">
+				<label for="genero2"><strong>Sertanejo<strong></label>
+				<input type="checkbox" id="tecnologia3" name="tecnologia3" value="Javascript">
+				<label for="tecnologia3"><strong>Pagode</strong></label>
+				<input type="checkbox" id="tecnologia4" name="tecnologia4" value="PHP">
+				<label for="tecnologia4"><strong>Samba</strong></label>
+				<input type="checkbox" id="tecnologia5" name="tecnologia5" value="C#">
+				<label for="tecnologia5"><strong>Funk</strong></label>
+				<input type="checkbox" id="tecnologia6" name="tecnologia6" value="Python">
+				<label for="tecnologia6"><strong>Reggae</strong></label><br>
+				<input type="checkbox" id="tecnologia7" name="tecnologia7" value="Java">
+				<label for="tecnologia7"><strong>Pop</strong></label>
+				<input type="checkbox" id="tecnologia1" name="tecnologia1" value="HTML">
+				<label for="tecnologia1"><strong>Forro</strong></label>
+				<input type="checkbox" id="tecnologia2" name="tecnologia2" value="CSS">
+				<label for="tecnologia2"><strong>Indie<strong></label>
+				<input type="checkbox" id="tecnologia3" name="tecnologia3" value="Javascript">
+				<label for="tecnologia3"><strong>Gospel</strong></label>
+				<input type="checkbox" id="tecnologia4" name="tecnologia4" value="PHP">
+				<label for="tecnologia4"><strong>MPB</strong></label>
+				<input type="checkbox" id="tecnologia5" name="tecnologia5" value="C#">
+				<label for="tecnologia5"><strong>Jazz</strong></label>
+			</div>
+		</fieldset>
+
+		<div class="campo">
+			<br>
+			<label for="myFile">Envie uma foto de perfil:</label>
+			<input name="myFile" type="file">
+		</div>
+		<fieldset class="grupo">
+			<div class="campo">
+				<button class="botao" type="submit">Concluído</button>
+			</div>
+			<div class="campo">
+				<button style="position: absolute; top: 95%; left: 55%;" class="botao" type="submit" >Redefinir</button>
+			</div>
+		</fieldset>
+	</form>
+</body>
+</html>

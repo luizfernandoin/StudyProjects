@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+    <title>{{ object.titulo }}</title>
+{% endblock %}
+
+{% block content %}
+    <a href="{% url 'updateTCC' pk=object.id %}" class="btn btn-dark">atualizar TCC</a>
+    <div class="page-header text-center py-3">
+        <h1>{{ object.titulo }}</h1>
+        <hr>
+    </div>
+    <div class="row">
+        <div class="col-sm-8">
+            <p class="h4"><strong>Autor(es): </strong></p>
+            <p class="h4">{{ object.autor.ultimo_nome }}, {{ object.autor.primeiro_nome }}</p>
+            <p class="h4"><strong>Ano de Publicação: </strong>{{ object.ano_documento }}</p>
+            <p class="h4"><strong>Orientador: </strong>{{ object.orientador.first_name }} {{ object.orientador.last_name }}</p>
+            <p class="h4"><strong>Curso:</strong> {{ object.curso.nome }}</p>
+            <p class="h4"><strong>Resumo: </strong></p>
+            <p class="h5">{{ object.resumo }}</p>
+            <p class="h4"><strong>TCC em PDF:</strong> <a href="{{ object.arquivo_documento.url }}">Abrir</a></p>
+        </div>
+    </div>
+    
+{% endblock %}

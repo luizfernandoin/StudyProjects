@@ -1,0 +1,28 @@
+table {
+    border-collapse: collapse;
+    width: 35%;
+    margin: 1rem auto;
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: .5rem;
+    text-align: left;
+}
+
+td.descricao {
+    max-width: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.total {
+    background-color: #00ff88;
+}
+
+.despesa {
+    color: red;
+}
+.receita {
+    color: green;
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Calculadora</title>
+	<link rel="stylesheet" href="src/css/style.css">
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
+	<link rel="shortcut icon" href="src/img/calculadora.png" type="image/x-icon" />
+</head>
+
+<body>
+	<div class="fundo">
+        <h2>Calculadora de Média</h2>
+
+        <form id="formulario">
+			<div class="box">
+				<input id="name" type="text" name="" min="0" max="100" required>
+				<label>Nome</label>
+			</div>
+
+			<div class="box">
+				<input id="nota1" type="number" name="" min="0" max="100" required>
+				<label>1ª nota</label>
+			</div>
+
+			<div class="box">
+				<input id="nota2" type="number" name="" min="0" max="100" required>
+				<label>2ª nota</label>
+			</div>
+
+			<div class="box">
+				<input id="nota3" type="number" name="" min="0" max="100" required>
+				<label>3ª nota</label>
+			</div>
+
+			<div class="box">
+				<input id="nota4" type="number" name="" min="0" max="100" required>
+				<label>4ª nota</label>
+			</div>
+
+			<div class="conteudo">
+				<button id="submit" class="submit-btn" ><span> Calcular </span></button>
+			</div>
+        </form>
+
+		
+    </div>
+
+	<script src="src/js/script.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+</body>
+</html>

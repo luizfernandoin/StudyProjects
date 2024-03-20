@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block style %}
+    <title>{{user.get_username}}</title>
+{% endblock %}
+
+{% block content %}
+    <h2>{{user.get_username}}</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <div class="buttons">
+
+            <button class="btn btn-success" type="submit">Salvar</button> 
+            <a class="btn btn-danger" href="{% url 'delete' pk=object.id %}">Deletar</a>
+            <a class="btn btn-outline-danger" href="{% url 'logout' %}">Sair</a>
+            <a href="{% url 'password' pk=object.id%}" class="btn btn-dark">Modificar Senha</a>
+        </div>
+    </form>
+{% endblock %}

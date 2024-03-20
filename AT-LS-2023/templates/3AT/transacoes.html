@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Transações</title>
+    <link rel="stylesheet" href="../../src/css/style.css">
+    <link rel="stylesheet" href="../../src/css/2AT/employees.css">
+    <link rel="stylesheet" href="../../src/css/3AT/transacoes.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <section class="container">
+        <div class="container-main">
+            <div class="main">
+                <h1>Controle de Transações</h1>
+                <div class="check">
+                    <div class="input">
+                        <input type="text" id="descricao" placeholder="Descrição da Transação">
+                    </div>
+                    <div class="input">
+                        <input type="number" id="valor-transacao" placeholder="Valor">
+                    </div>
+                    <button class="btn btn-depositar">Depositar</button>
+                    <button class="btn btn-sacar">Sacar</button>
+                </div>
+            </div>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Descrição</th>
+                    <th>Valor</th>
+                </tr>
+            </thead>
+            <tbody id="transactionTableBody">
+            </tbody>
+            <tfoot>
+                <tr class="total">
+                    <th>Total</th>
+                    <td id="saldoTotal">R$ 0,00</td>
+                </tr>
+            </tfoot>
+        </table>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../../src/js/3AT/transacoes.js"></script>
+</body>
+</html>

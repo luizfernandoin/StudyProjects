@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../src/css/4AT/supermercado.css">
+    <link rel="stylesheet" href="../../src/css/style.css">
+    <title>Lista de Compras</title>
+</head>
+<body>
+    <section class="container">
+        <h1>Lista de Compras</h1>
+        <div class="form">
+            <div class="input">
+                <input type="text" id="itemInput" placeholder="Nome do item">
+            </div>
+            <div class="input">
+                <input type="number" id="priceInput" placeholder="Preço">
+            </div>
+            
+            <button class="btn">Adicionar</button>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Preço</th>
+                    <th>Comprado</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody id="listaItens">
+            </tbody>
+        </table>
+    </section>
+
+    <script type="module" src="../../src/js/4AT/lista.js"></script>
+    <script type="module" src="../../src/js/4AT/index.js"></script>
+</body>
+</html>
