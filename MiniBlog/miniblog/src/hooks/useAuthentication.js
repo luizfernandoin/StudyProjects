@@ -43,6 +43,8 @@ export const useAuthentication = () => {
                 displayName: data.displayName
             })
 
+            setLoading(false);
+
             return user;
 
         } catch (error) {
@@ -59,10 +61,40 @@ export const useAuthentication = () => {
                 systemErrorMessage = "Ocorreu um erro, por favor tente mais tarde!"
             }
 
+            setLoading(false);
             setError(systemErrorMessage);
         }
+    }
 
-        setLoading(false);
+    // Login
+    const login = async (data) => {
+        checkIfIsCancelled();
+
+        setLoading(true);
+        setError(null);
+
+        try {
+            const { user } = await signInWithEmailAndPassword(
+                auth, 
+                data.email, 
+                data.password
+            );
+
+            setLoading(false);
+
+            return user;
+        } catch (error) {
+            let systemErrorMessage = "E-mail e/ou Senha inválidos!"
+
+            setLoading(false);
+            setError(systemErrorMessage);
+        }
+    }
+
+    const logout = () => {
+        checkIfIsCancelled();
+
+        signOut(auth);
     }
 
     useEffect(() => {
@@ -74,5 +106,7 @@ export const useAuthentication = () => {
         createUser,
         error,
         loading,
+        logout,
+        login
     };
 }
