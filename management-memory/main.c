@@ -8,14 +8,14 @@ const int MEMORY_SIZE = 1024 / sizeof(int);
 
 // ESTRUTURAS
 
-typedef struct Process
+typedef struct process
 {
     int pid;
     int size;
     int base;
     int limit;
     int is_allocated;
-    Process *next;
+    struct process *next;
 } Process;
 
 typedef struct memory {
@@ -58,7 +58,7 @@ void addProcess(Memory *memory, Process *process) {
     if (memory->head == NULL) {
         memory->head = process;
         process->base = 0;
-        process->limit = process->size;
+        process->limit = process->size - 1;
     } else {
         Process *aux_process = memory->head;
         while (aux_process->next != NULL) {
@@ -162,9 +162,9 @@ void allocateBestFit(Memory *memory, Process *process) {
     
 }
 
-void allocateWorstFit() {
+// void allocateWorstFit() {
     
-}
+// }
 
 
 /* Alocação de Processos
@@ -173,6 +173,17 @@ void allocateWorstFit() {
 - Worst Fit
 */
 
+void printMemory(Memory *memory) {
+    Process *aux_process = (Process*)malloc(sizeof(Process));
+    aux_process = memory->head;
+
+    printf("pid | size | base | limit | allocated");
+    while (aux_process != NULL)
+    {
+        printProcess(aux_process);
+        aux_process = aux_process->next;
+    }
+}
 
 
 // FUNÇÕES DE PROCESSOS
@@ -198,10 +209,21 @@ Process * createProcess(int pid) {
     return new_process;
 }
 
+void printProcess(Process *process) {
+    printf("\n%d | %d | %d | %d | %d", process->pid, process->size, process->base, process->limit, process->is_allocated);
+}
+
 void main() {
-    int ram[MEMORY_SIZE];
     int pid = 0;
     srand(time(NULL));
 
+    Memory * memory = createMemory();
+    for (int c = 0; c < 5; c++) {
+        Process * process = createProcess(pid);
+        addProcess(memory, process);
 
+        pid++;
+    }
+
+    printMemory(memory);
 }
