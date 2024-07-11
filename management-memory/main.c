@@ -54,6 +54,33 @@ void delMemory(Memory *memory) {
     free(memory);
 }
 
+void delProcessByPID(Memory *memory, int pid) {
+    if (memory->head == NULL) {
+        printf("PID não encontrado!\n");
+        return;
+    }
+
+    Process *current = memory->head;
+    Process *previous = NULL;
+
+    while (current != NULL) {
+        if (current->pid == pid) {
+            if (previous == NULL) {
+                memory->head = current->next;
+            } else {
+                previous->next = current->next;
+            }
+            free(current);
+            memory->len_processes--;
+            printf("Processo PID %d removido.\n", pid);
+            return;
+        }
+        previous = current;
+        current = current->next;
+    }
+    printf("PID não encontrado!\n");
+}
+
 void addProcess(Memory *memory, Process *process) {
     if (memory->head == NULL) {
         memory->head = process;
@@ -72,6 +99,12 @@ void addProcess(Memory *memory, Process *process) {
 
     process->is_allocated = 1;
     process->next = NULL;
+}
+
+int calPartitionMemory(Process *left_process, Process * right_process) {
+    int partition_memory = right_process->base - left_process->limit - 1;
+
+    return partition_memory;
 }
 
 void allocateFirstFit(Memory *memory, Process *process) {
@@ -112,59 +145,103 @@ void allocateFirstFit(Memory *memory, Process *process) {
         process->is_allocated = 1;
         process->next = NULL;
     } else {
-        printf("Não há espaço suficiente na memória para o processo PID: %d, Size: %d\n", process->pid, process->size);
+        printf("\nNão há espaço suficiente na memória para o processo PID: %d, Size: %d\n", process->pid, process->size);
         free(process);
     }
 }
 
-Process * getProcessByPID(Memory *memory, int pid) {
-    if (memoryIsEmpty(memory)) {
-        return;
-    }
-    
-    Process *aux_process = (Process*)malloc(sizeof(Process));
-    aux_process = memory->head;
+// Process * getProcessByPID(Memory *memory, int pid) {
+//     if (memoryIsEmpty(memory)) {
+//         return NULL;
+//     }
 
+//     Process *aux_process = memory->head;
 
-    while (aux_process != NULL)
-    {
-        if (aux_process->pid == pid) {
-            return aux_process;
-        }
+//     while (aux_process != NULL) {
+//         if (aux_process->pid == pid) {
+//             return aux_process;
+//         }
+//         aux_process = aux_process->next;
+//     }
 
-        aux_process = aux_process->next;
-    }
-}
+//     return NULL;
+// }
 
 void allocateBestFit(Memory *memory, Process *process) {
     if (memoryIsEmpty(memory)) {
         addProcess(memory, process);
-
         return;
     }
 
-    Process *aux_process = (Process*)malloc(sizeof(Process));
-    aux_process = memory->head;
+    Process *aux_process = memory->head;
+    Process *best_partition = NULL;
+    int best_partition_memory = MEMORY_SIZE + 1;
 
-    int left = 0, right = 0;
-    int aux_pid = -1;
-    while (aux_process->next != NULL)
-    {
-        left = aux_process->limit;
-        right = aux_process->next->base;
-        
-        int partition_memory = right - left;
-
-        if (process->size <= partition_memory) {
-            
+    // Loop para encontrar a melhor partição
+    while (aux_process->next != NULL) {
+        int partition_memory = calPartitionMemory(aux_process, aux_process->next);
+        if (partition_memory >= process->size && partition_memory < best_partition_memory) {
+            best_partition_memory = partition_memory;
+            best_partition = aux_process;
         }
+        aux_process = aux_process->next;
     }
-    
+
+    int remaining_memory = MEMORY_SIZE - aux_process->limit;
+    printf("%d", aux_process->limit);
+    printf("\n\n%d, %d", remaining_memory, best_partition_memory);
+    if (remaining_memory >= process->size && remaining_memory < best_partition_memory) {
+        best_partition = aux_process;
+    }
+
+    // Verifica se encontrou uma partição adequada
+    if (best_partition != NULL) {
+        process->next = best_partition->next;
+        best_partition->next = process;
+        process->base = best_partition->limit + 1;
+        process->limit = process->base + process->size - 1;
+        memory->len_processes++;
+    } else {
+        addProcess(memory, process);
+    }
 }
 
-// void allocateWorstFit() {
-    
-// }
+void allocateWorstFit(Memory *memory, Process *process) {
+    if (memoryIsEmpty(memory)) {
+        addProcess(memory, process);
+        return;
+    }
+
+    Process *aux_process = memory->head;
+    Process *worst_partition = NULL;
+    int worst_partition_memory = 0;
+
+    // Loop para encontrar a melhor partição
+    while (aux_process->next != NULL) {
+        int partition_memory = calPartitionMemory(aux_process, aux_process->next);
+        if (partition_memory >= process->size && partition_memory > worst_partition_memory) {
+            worst_partition_memory = partition_memory;
+            worst_partition = aux_process;
+        }
+        aux_process = aux_process->next;
+    }
+
+    int remaining_memory = MEMORY_SIZE - aux_process->limit;
+    if (remaining_memory >= process->size && remaining_memory > worst_partition_memory) {
+        worst_partition = aux_process;
+    }
+
+    // Verifica se encontrou uma partição adequada
+    if (worst_partition != NULL) {
+        process->next = worst_partition->next;
+        worst_partition->next = process;
+        process->base = worst_partition->limit + 1;
+        process->limit = process->base + process->size - 1;
+        memory->len_processes++;
+    } else {
+        addProcess(memory, process);
+    }
+}
 
 
 /* Alocação de Processos
@@ -177,7 +254,7 @@ void printMemory(Memory *memory) {
     Process *aux_process = (Process*)malloc(sizeof(Process));
     aux_process = memory->head;
 
-    printf("pid | size | base | limit | allocated");
+    printf("\npid | size | base | limit | allocated");
     while (aux_process != NULL)
     {
         printProcess(aux_process);
@@ -216,14 +293,72 @@ void printProcess(Process *process) {
 void main() {
     int pid = 0;
     srand(time(NULL));
-
+    
     Memory * memory = createMemory();
-    for (int c = 0; c < 5; c++) {
-        Process * process = createProcess(pid);
-        addProcess(memory, process);
+    
+    Process *p1 = (Process *)malloc(sizeof(Process));
+    p1->pid = 1;
+    p1->size = 20;
+    p1->next = NULL;
+    allocateBestFit(memory, p1);
 
-        pid++;
+    Process *p2 = (Process *)malloc(sizeof(Process));
+    p2->pid = 2;
+    p2->size = 15;
+    p2->next = NULL;
+    allocateBestFit(memory, p2);
+
+    Process *p3 = (Process *)malloc(sizeof(Process));
+    p3->pid = 3;
+    p3->size = 25;
+    p3->next = NULL;
+    allocateBestFit(memory, p3);
+
+    Process *p4 = (Process *)malloc(sizeof(Process));
+    p4->pid = 4;
+    p4->size = 10;
+    p4->next = NULL;
+    allocateBestFit(memory, p4);
+
+    Process *p5 = (Process *)malloc(sizeof(Process));
+    p5->pid = 5;
+    p5->size = 936;
+    p5->next = NULL;
+    allocateBestFit(memory, p5);
+
+    printf("Estado da memória após alocação:\n");
+    printMemory(memory);
+
+    // Remover alguns processos
+    delProcessByPID(memory, 2);
+    delProcessByPID(memory, 4);
+
+    printf("Estado da memória após remoção de processos:\n");
+    printMemory(memory);
+
+    // Adicionar novos processos
+    Process *p6 = (Process *)malloc(sizeof(Process));
+    p6->pid = 6;
+    p6->size = 12;
+    p6->next = NULL;
+    allocateBestFit(memory, p6);
+
+    Process *p7 = (Process *)malloc(sizeof(Process));
+    p7->pid = 7;
+    p7->size = 8;
+    p7->next = NULL;
+    allocateBestFit(memory, p7);
+
+    printf("Estado da memória após novas alocações:\n");
+    printMemory(memory);
+
+    // Liberar memória alocada
+    Process *temp;
+    while (memory->head != NULL) {
+        temp = memory->head;
+        memory->head = memory->head->next;
+        free(temp);
     }
 
-    printMemory(memory);
+
 }
